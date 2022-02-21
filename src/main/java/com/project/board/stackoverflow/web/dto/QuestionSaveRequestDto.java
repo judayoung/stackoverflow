@@ -5,17 +5,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Getter
 @NoArgsConstructor
 public class QuestionSaveRequestDto {
 
-    //private int num;
     private String title;
     private String content;
     private String author;
-    //private Date date;
 
     @Builder
     public QuestionSaveRequestDto(String title, String content, String author){
