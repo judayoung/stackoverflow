@@ -22,19 +22,19 @@ public class QuestionService {
     }
 
     @Transactional
-    public QuestionResponseDto findById(Long id){
-        Question entity=questionRepository.findById(id)
-                .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
-        return new QuestionResponseDto(entity);
-    }
-
-    @Transactional
     public Long update(Long id, QuestionUpdateRequestDto requestDto){
         Question question=questionRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
         question.update(requestDto.getTitle(), requestDto.getContent());
         return id;
     }
+
+    public QuestionResponseDto findById(Long id){
+        Question entity=questionRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
+        return new QuestionResponseDto(entity);
+    }
+
 
 
 }
