@@ -27,4 +27,10 @@ public class QuestionApiController {
     public QuestionResponseDto findById(@PathVariable Long id){
         return questionService.findById(id);
     }
+
+    @DeleteMapping("/api/v1/question/{id}")
+    public Long delete(@PathVariable Long id){
+        questionService.delete(id);
+        return id;
+    }
 }

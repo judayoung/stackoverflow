@@ -2,12 +2,16 @@ package com.project.board.stackoverflow.service.question;
 
 import com.project.board.stackoverflow.domain.question.Question;
 import com.project.board.stackoverflow.domain.question.QuestionRepository;
+import com.project.board.stackoverflow.web.dto.QuestionListResponseDto;
 import com.project.board.stackoverflow.web.dto.QuestionResponseDto;
 import com.project.board.stackoverflow.web.dto.QuestionSaveRequestDto;
 import com.project.board.stackoverflow.web.dto.QuestionUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -35,6 +39,19 @@ public class QuestionService {
         return new QuestionResponseDto(entity);
     }
 
+    @Transactional(readOnly = true)
+    public List<QuestionListResponseDto> findAllDesc() {
+        return questionRepository.findAllDesc().stream()
+                .map(QuestionListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void delete(Long id){
+        Question question=questionRepository.findById(id).orElseThrow(
+                ()->new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
+        questionRepository.delete(question);
+    }
 
 
 }
